@@ -26,7 +26,7 @@ a:hover,a:focus-visible{border-color:#83a9ff;outline:2px solid #83a9ff;outline-o
 <p class="note">入口状态表示是否已发布网址，实际在线情况以打开后的连接结果为准。</p>
 </main><script>
 for(const [repo,id] of [['lanx-go','status1'],['lanx-go1','status2']]){
-  fetch('https://raw.githubusercontent.com/duanzhenjiang/'+repo+'/main/url.json?cb='+Date.now(),{cache:'no-store',headers:{Accept:'application/vnd.github.raw+json'}})
+  fetch((repo==='lanx-go1'?'./pc2/url.json?cb='+Date.now():'https://raw.githubusercontent.com/duanzhenjiang/'+repo+'/main/url.json?cb='+Date.now()),{cache:'no-store',headers:{Accept:'application/vnd.github.raw+json'}})
     .then(r=>{if(!r.ok)throw Error();return r.json()})
     .then(d=>{document.getElementById(id).textContent=d&&/^https:\/\/[a-z0-9.-]+$/i.test(d.url||'')?'访问网址已发布':'等待电脑发布访问网址'})
     .catch(()=>{document.getElementById(id).textContent='暂时无法确认，可点击入口重试'});
